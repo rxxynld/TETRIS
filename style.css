@@ -11,7 +11,7 @@ body {
   background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
   color: var(--main-text-color);
   display: flex;
-  flex-direction: column; /* Mengatur tata letak agar vertikal */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -70,7 +70,7 @@ h1 {
 .game-container {
   display: flex;
   gap: 30px;
-  flex-wrap: wrap; /* Memungkinkan wrap pada layar kecil */
+  flex-wrap: wrap;
   justify-content: center;
 }
 
