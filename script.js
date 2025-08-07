@@ -158,14 +158,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       draw();
     }
+    
+    function moveDownFast() {
+        undraw();
+        while(!current.some(index => squares[currentPosition + index + width] && squares[currentPosition + index + width].classList.contains('taken'))) {
+            currentPosition += width;
+        }
+        draw();
+        freeze();
+    }
 
+    // Event listener untuk keyboard
     document.addEventListener('keyup', control);
     function control(e) {
       if (e.keyCode === 37) { moveLeft(); }
       else if (e.keyCode === 38) { rotate(); }
       else if (e.keyCode === 39) { moveRight(); }
       else if (e.keyCode === 40) { moveDown(); }
+      else if (e.keyCode === 32) { moveDownFast(); } // Spasi untuk drop cepat
     }
+
+    // Event listener untuk tombol sentuh
+    document.getElementById('left-btn').addEventListener('click', moveLeft);
+    document.getElementById('right-btn').addEventListener('click', moveRight);
+    document.getElementById('rotate-btn').addEventListener('click', rotate);
+    document.getElementById('down-btn').addEventListener('click', moveDownFast);
+
 
     const displayNextTetromino = () => {
       if (nextDisplay.children.length === 0) {
