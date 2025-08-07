@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tetris Estetik Maksimal</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-container">
+    <div class="glow-effect"></div>
+  </div>
+
+  <div class="game-wrapper">
+    <h1>TETRIS</h1>
+    <div class="game-container">
+      <div class="side-panel left-panel">
+        <div class="info-box hold-box">
+          <p>HOLD</p>
+          <div class="hold-container"></div>
+        </div>
+      </div>
+      <div class="game-board">
+        <div class="grid"></div>
+      </div>
+      <div class="side-panel right-panel">
+        <div class="info-box next-box">
+          <p>NEXT</p>
+          <div class="next-container"></div>
+        </div>
+        <div class="info-box score-box">
+          <p>SKOR</p>
+          <span id="score">0</span>
+        </div>
+        <div class="info-box level-box">
+          <p>LEVEL</p>
+          <span id="level">1</span>
+        </div>
+        <button id="start-button" class="aesthetic-btn">Mulai</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="game-music" loop></audio>
+  
+  <script src="script.js"></script>
+</body>
+</html>
