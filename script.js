@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 10;
     const height = 20;
 
-    // Daftar lagu yang tersedia (sudah menggunakan nama file yang baru)
     const songList = [
       'hold_on_tight.mp3',
       'strategy.mp3',
@@ -28,21 +27,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.querySelector('#start-button');
     const nextDisplay = document.querySelector('.next-container');
     const levelDisplay = document.querySelector('#level');
+    const leftBtn = document.getElementById('left-btn');
+    const rightBtn = document.getElementById('right-btn');
+    const rotateBtn = document.getElementById('rotate-btn');
+    const downBtn = document.getElementById('down-btn');
+
     let nextRandom = 0;
     let timerId;
     let score = 0;
     let level = 1;
     let timerSpeed = 1000;
 
-    // Palet warna estetik maksimal
     const colors = [
-      '#FF6B6B', // Red-Pink
-      '#FFC75F', // Orange-Yellow
-      '#88D8B0', // Mint Green
-      '#9D638B', // Muted Purple
-      '#5E94D4', // Sky Blue
-      '#A799B7', // Soft Lilac
-      '#E8B4BC'  // Dusty Rose
+      '#FF6B6B', 
+      '#FFC75F',
+      '#88D8B0',
+      '#9D638B',
+      '#5E94D4',
+      '#A799B7',
+      '#E8B4BC'
     ];
 
     const lTetromino = [
@@ -158,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       draw();
     }
-    
+
     function moveDownFast() {
         undraw();
         while(!current.some(index => squares[currentPosition + index + width] && squares[currentPosition + index + width].classList.contains('taken'))) {
@@ -171,19 +174,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener untuk keyboard
     document.addEventListener('keyup', control);
     function control(e) {
-      if (e.keyCode === 37) { moveLeft(); }
-      else if (e.keyCode === 38) { rotate(); }
-      else if (e.keyCode === 39) { moveRight(); }
-      else if (e.keyCode === 40) { moveDown(); }
-      else if (e.keyCode === 32) { moveDownFast(); } // Spasi untuk drop cepat
+      if (timerId) {
+          if (e.keyCode === 37) { moveLeft(); }
+          else if (e.keyCode === 38) { rotate(); }
+          else if (e.keyCode === 39) { moveRight(); }
+          else if (e.keyCode === 40) { moveDown(); }
+          else if (e.keyCode === 32) { moveDownFast(); }
+      }
     }
 
     // Event listener untuk tombol sentuh
-    document.getElementById('left-btn').addEventListener('click', moveLeft);
-    document.getElementById('right-btn').addEventListener('click', moveRight);
-    document.getElementById('rotate-btn').addEventListener('click', rotate);
-    document.getElementById('down-btn').addEventListener('click', moveDownFast);
-
+    if (leftBtn) leftBtn.addEventListener('click', moveLeft);
+    if (rightBtn) rightBtn.addEventListener('click', moveRight);
+    if (rotateBtn) rotateBtn.addEventListener('click', rotate);
+    if (downBtn) downBtn.addEventListener('click', moveDownFast);
 
     const displayNextTetromino = () => {
       if (nextDisplay.children.length === 0) {
@@ -240,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
           startBtn.innerHTML = 'Mulai Lagi';
           clearInterval(timerId);
           document.removeEventListener('keyup', control);
-          gameMusic.pause();
+          if (gameMusic) gameMusic.pause();
       }
     }
 
@@ -250,11 +254,13 @@ document.addEventListener('DOMContentLoaded', () => {
           timerId = null;
           startBtn.innerHTML = 'Lanjutkan';
           document.removeEventListener('keyup', control);
-          gameMusic.pause();
+          if (gameMusic) gameMusic.pause();
       } else {
-          const randomSongIndex = Math.floor(Math.random() * songList.length);
-          gameMusic.src = songList[randomSongIndex];
-          gameMusic.play();
+          if (gameMusic) {
+              const randomSongIndex = Math.floor(Math.random() * songList.length);
+              gameMusic.src = songList[randomSongIndex];
+              gameMusic.play();
+          }
 
           draw();
           timerId = setInterval(moveDown, timerSpeed);
